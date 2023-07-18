@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Django app</title>
+    {% load static %}
+    {% load crispy_forms_tags %}
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/styles.css' %}">
+</head>
+<body>
+<section class="navigation-section">
+     <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+  <!-- Brand -->
+  <a class="navbar-brand" href="{% url 'home-page' %}">SUPER ECOMMERCE</a>
+
+  <!-- Toggler/collapsibe Button -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <!-- Navbar links -->
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'home-page' %}">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Contact us</a>
+      </li>
+
+      {% if user.is_authenticated %}
+            <li class="nav-item">
+                 <a class="nav-link" href="{% url 'all-products' %}">Products</a>
+      </li>
+           <li class="nav-item">
+        <a class="nav-link" href="{% url 'add-product-page' %}">Add product</a>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'user-logout' %}">Log Out</a>
+      </li>
+      {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'user-registration' %}">Register</a>
+      </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'user-login' %}">Login</a>
+      </li>
+      {% endif %}
+    </ul>
+  </div>
+</nav>
+</section>
+
+<section class="content-section">
+    {% for message in mesages %}
+        <p class="text-center">{{ message }}</p>
+    {% endfor %}
+
+    {% block content %}
+
+    {% endblock %}
+
+</section>
+</body>
+</html>
